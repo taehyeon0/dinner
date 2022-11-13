@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ka.dinner.mapper.user.UserTypeMapper">
+    <insert id="insert">
+        insert into user_types values (#{id}, #{name})
+    </insert>
+
+    <delete id="delete">
+        delete from user_types where id=#{id}
+    </delete>
+
+    <update id="update">
+        update user_types SET name=#{name} where id=#{id}
+    </update>
+
+    <select id="selectAll" resultType="UserType">
+        select * from user_types
+    </select>
+
+    <select id="selectById" resultType="UserType">
+        select * from user_types where id=#{id}
+    </select>
+
+    <select id="selectByName" resultType="UserType">
+        select * from user_types where name=#{name}
+    </select>
+</mapper>
