@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ka.dinner.mapper.user.UserMapper">
+    <resultMap id="userResult" type="User">
+        <id property="id" column="id"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="address" column="address"/>
+        <result property="subAddress" column="subAddress"/>
+        <result property="latitude" column="latitude"/>
+        <result property="longitude" column="longitude"/>
+        <result property="phone" column="phone"/>
+        <result property="registerDate" column="registerDate"/>
+        <result property="removeDate" column="removeDate"/>
+        <association property="type" javaType="UserType">
+            <id property="id" column="typeId"/>
+            <result property="name" column="typeName"/>
+        </association>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="user.id">
+        insert into users
+        (type_id, email, password, name, address, sub_address, latitude, longitude, phone)
+        values (#{type.id}, #{user.email}, #{user.password}, #{user.name}, #{user.address},
+        #{user.subAddress}, #{user.latitude}, #{user.longitude}, #{user.phone})
+    </insert>
+
+    <update id="delete">
+        update users set remove_date=#{now} where id=#{id}
+    </update>
+
+    <update id="update">
+        update users set password=#{user.password}, name=#{user.name}, address=#{user.address},
+        sub_address=#{user.subAddress}, latitude=#{user.latitude}, longitude=#{user.longitude}, phone=#{user.phone} where id=#{user.id}
+    </update>
+
+    <select id="selectById" resultMap="userResult">
+        select a.id as id
+        , a.type_id as typeId
+        , a.email as email
+        , a.password as password
+        , a.name as name
+        , a.address as address
+        , a.sub_address as subAddress
+        , a.latitude as latitude
+        , a.longitude as longitude
+        , a.phone as phone
+        , a.register_date as registerDate
+        , a.remove_date as removeDate
+        , b.name as typeName
+        from users as a inner join user_types as b on a.type_id=b.id
+        where a.id=#{id}
+    </select>
+
+    <select id="selectByEmail" resultType="User">
+        select a.id as id
+        , a.type_id as typeId
+        , a.email as email
+        , a.password as password
+        , a.name as name
+        , a.address as address
+        , a.sub_address as subAddress
+        , a.latitude as latitude
+        , a.longitude as longitude
+        , a.phone as phone
+        , a.register_date as registerDate
+        , a.remove_date as removeDate
+        , b.name as typeName
+        from users as a inner join user_types as b on a.type_id=b.id
+        where email=#{email}
+    </select>
+
+    <select id="selectByEmailAndPassword" resultType="User">
+        select a.id as id
+        , a.type_id as typeId
+        , a.email as email
+        , a.password as password
+        , a.name as name
+        , a.address as address
+        , a.sub_address as subAddress
+        , a.latitude as latitude
+        , a.longitude as longitude
+        , a.phone as phone
+        , a.register_date as registerDate
+        , a.remove_date as removeDate
+        , b.name as typeName
+        from users as a inner join user_types as b on a.type_id=b.id
+        where email=#{email} and password=#{password}
+    </select>
+
+    <select id="selectAll" resultType="User">
+        select a.id as id
+        , a.type_id as typeId
+        , a.email as email
+        , a.password as password
+        , a.name as name
+        , a.address as address
+        , a.sub_address as subAddress
+        , a.latitude as latitude
+        , a.longitude as longitude
+        , a.phone as phone
+        , a.register_date as registerDate
+        , a.remove_date as removeDate
+        , b.name as typeName
+        from users as a inner join user_types as b on a.type_id=b.id
+    </select>
+</mapper>
