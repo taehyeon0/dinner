@@ -6,6 +6,7 @@ import ka.dinner.repository.user.MyBatisUserRepository;
 import ka.dinner.repository.user.MyBatisUserTypeRepository;
 import ka.dinner.repository.user.UserRepository;
 import ka.dinner.repository.user.UserTypeRepository;
+import ka.dinner.service.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,5 +26,35 @@ public class MyBatisConfig {
     @Bean
     public UserRepository userRepository() {
         return new MyBatisUserRepository(userMapper);
+    }
+
+    @Bean
+    public CheckEmailService checkEmailService() {
+        return new CheckEmailService(userRepository());
+    }
+
+    @Bean
+    public CheckPasswordService checkPasswordService() {
+        return new CheckPasswordService(userRepository());
+    }
+
+    @Bean
+    public UserDeleteService userDeleteService() {
+        return new UserDeleteService(userRepository());
+    }
+
+    @Bean
+    public UserInsertService userInsertService() {
+        return new UserInsertService(userRepository(), userTypeRepository());
+    }
+
+    @Bean
+    public UserUpdateService userUpdateService() {
+        return new UserUpdateService(userRepository());
+    }
+
+    @Bean
+    public UserViewService userViewService() {
+        return new UserViewService(userRepository());
     }
 }
