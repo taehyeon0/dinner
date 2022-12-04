@@ -24,7 +24,6 @@ class MyBatisUserRepositoryTest {
     @Autowired
     UserTypeRepository userTypeRepository;
 
-    @Commit
     @Test
     void insert() {
         //given
@@ -57,6 +56,18 @@ class MyBatisUserRepositoryTest {
 
     @Test
     void update() {
+        //given
+        UserType type = new UserType("TEST", "테스트용");
+        userTypeRepository.insert(type);
+        User user = new User(0, type,"test@naver.com","test","테스트","testAddress1","testAddress2",35,127,"010-0000-0000",null,null);
+        User insertedUser = userRepository.insert(user);
+        User updatedUser = new User(insertedUser.getId(), type,"test@naver.com","test","업데이트","testAddress1","testAddress2",35,127,"010-0000-0000",null,null);
+
+        //when
+        userRepository.update(updatedUser);
+
+        //then
+        assertThat(userRepository.selectById(insertedUser.getId()).getName()).isEqualTo("업데이트");
     }
 
     @Test

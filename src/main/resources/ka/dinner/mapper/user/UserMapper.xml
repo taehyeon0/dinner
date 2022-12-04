@@ -32,8 +32,8 @@
     </update>
 
     <update id="update">
-        update users set password=#{user.password}, name=#{user.name}, address=#{user.address},
-        sub_address=#{user.subAddress}, latitude=#{user.latitude}, longitude=#{user.longitude}, phone=#{user.phone} where id=#{user.id}
+        update users set password=#{password}, name=#{name}, address=#{address},
+        sub_address=#{subAddress}, latitude=#{latitude}, longitude=#{longitude}, phone=#{phone} where id=#{id}
     </update>
 
     <select id="selectById" resultMap="userResult">

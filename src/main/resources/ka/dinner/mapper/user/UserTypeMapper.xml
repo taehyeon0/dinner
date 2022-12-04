@@ -11,7 +11,7 @@
     </delete>
 
     <update id="update">
-        update user_types SET name=#{name} where id=#{id}
+        update user_types set name=#{name} where id=#{id}
     </update>
 
     <select id="selectAll" resultType="UserType">

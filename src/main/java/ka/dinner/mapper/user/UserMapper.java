@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserMapper {
     void insert(@Param("user") User user, @Param("type") UserType userType);
     void delete(@Param("id") int id, @Param("now") String now);
-    User update(User user);
+    void update(User user);
     User selectById(int id);
     User selectByEmail(String email);
     User selectByEmailAndPassword(@Param("email") String email, @Param("password") String password);

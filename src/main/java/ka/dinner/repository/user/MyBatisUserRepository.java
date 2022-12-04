@@ -36,7 +36,8 @@ public class MyBatisUserRepository implements UserRepository{
 
     @Override
     public User update(User user) {
-        return userMapper.update(user);
+        userMapper.update(user);
+        return user;
     }
 
     @Override

@@ -17,16 +17,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 @Transactional
 @SpringBootTest
-class UserViewServiceTest {
-
-    @Autowired
-    UserRepository userRepository;
+class UserDeleteServiceTest {
 
     @Autowired
     UserTypeRepository userTypeRepository;
 
     @Autowired
-    UserViewService userViewService;
+    UserRepository userRepository;
+
+    @Autowired
+    UserDeleteService userDeleteService;
 
     protected MockHttpSession session;
 
@@ -41,16 +41,16 @@ class UserViewServiceTest {
         //given
         UserType type = new UserType("TEST", "테스트용");
         userTypeRepository.insert(type);
-        User user = new User(0, type,"test@naver.com","test","테스트","testAddress1","testAddress2",35,127,"010-0000-0000",null,null);
+        User user = new User(0, type,"test@naver.com","test","테스트","testAddress1","testAddress2",35,127,"01000000000",null,null);
         userRepository.insert(user);
 
         session = new MockHttpSession();
         session.setAttribute("loginUser", user);
 
         //when
-        User loginUser = userViewService.execute(session);
+        userDeleteService.execute(session);
 
         //then
-        assertThat(loginUser.getId()).isEqualTo(user.getId());
+        assertThat(userRepository.selectById(user.getId()).getRemoveDate()).isNotNull();
     }
 }
