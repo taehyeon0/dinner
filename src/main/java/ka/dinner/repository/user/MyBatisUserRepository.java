@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class MyBatisUserRepository implements UserRepository{
+public class MyBatisUserRepository implements UserRepository {
 
     private final UserMapper userMapper;
 
